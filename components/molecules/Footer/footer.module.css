@@ -1,0 +1,30 @@
+.container,
+.container__social {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  background-color: black;
+  color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.container__social svg {
+  color: white;
+  width: 3rem;
+  height: 3rem;
+}
+
+.container__social {
+  flex-direction: row;
+}
+
+@media (min-width: 700px) {
+  .container,
+  .container__social {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
