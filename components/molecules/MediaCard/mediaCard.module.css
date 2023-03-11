@@ -1,0 +1,16 @@
+.card__name,
+.card__chip span,
+.card__chip > div {
+  text-transform: capitalize;
+}
+
+.card__chip {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.card__image:hover {
+  transform: scale(1.1);
+}
+@media (min-width: 700px) {
+}
