@@ -8,6 +8,7 @@ const { getAllPokemons, getPokemon } = pokemonService
 
 export const HomeContainer = () => {
   const [pokemons, setPokemons] = useState<PokemonByIdResponse[]>([])
+
   const fetchPokemons = async (signal: GenericAbortSignal) => {
     try {
       const response = await getAllPokemons(signal)

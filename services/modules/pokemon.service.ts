@@ -18,6 +18,15 @@ const pokemonService = {
 
     return data
   },
+
+  getPokemonById: async (id: string, signal?: GenericAbortSignal) => {
+    const { data } = await api.get<PokemonByIdResponse>(
+      `${process.env.NEXT_PUBLIC_URL_BASE}/pokemon/${id}`,
+      { signal }
+    )
+
+    return data
+  },
 }
 
 export { pokemonService }
