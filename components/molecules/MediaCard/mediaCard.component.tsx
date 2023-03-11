@@ -11,14 +11,15 @@ import { Chip } from "@mui/material"
 import { CHIP_COLORS } from "constants/chipColors.constants"
 import Link from "next/link"
 
-export const MediaCardComponent = ({
-  id,
-  name,
-  sprites: {
-    other: { dream_world },
-  },
-  types,
-}: MediaCardProps) => {
+export const MediaCardComponent = (props: MediaCardProps) => {
+  const {
+    id,
+    name,
+    sprites: {
+      other: { dream_world },
+    },
+    types,
+  } = props
   return (
     <Card sx={{ maxWidth: 345 }}>
       <Image
