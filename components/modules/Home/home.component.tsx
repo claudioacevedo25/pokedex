@@ -1,4 +1,4 @@
-import { PokemonByIdResponse } from "service/models/pokemon.model"
+import { PokemonByIdResponse } from "@/services/models/pokemon.model"
 import { MediaCard } from "@/components/molecules/MediaCard"
 import styles from "./home.module.css"
 type Props = {

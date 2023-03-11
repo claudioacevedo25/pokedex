@@ -1,20 +1,18 @@
-import {
-  PokemonByIdResponse,
-  PokemonResponse,
-} from "@/service/models/pokemon.model"
+import { PokemonByIdResponse } from "services/models/pokemon.model"
 import { HomeComponent } from "./home.component"
-import { pokemonService } from "service/modules/pokemon.service"
+import { pokemonService } from "services/modules/pokemon.service"
 import { useEffect, useState } from "react"
+import { GenericAbortSignal } from "axios"
 
 const { getAllPokemons, getPokemon } = pokemonService
 
 export const HomeContainer = () => {
   const [pokemons, setPokemons] = useState<PokemonByIdResponse[]>([])
-  const fetchPokemons = async () => {
+  const fetchPokemons = async (signal: GenericAbortSignal) => {
     try {
-      const response = await getAllPokemons()
+      const response = await getAllPokemons(signal)
       response.map(async ({ url }) => {
-        const pokemon = await getPokemon(url)
+        const pokemon = await getPokemon(url, signal)
         setPokemons((prevState) => [...prevState, pokemon])
       })
     } catch (error) {
@@ -23,9 +21,9 @@ export const HomeContainer = () => {
   }
 
   useEffect(() => {
-    const controller = new AbortController()
-    void fetchPokemons()
-    return () => controller.abort()
+    const abortController = new AbortController()
+    void fetchPokemons(abortController.signal)
+    return () => abortController.abort()
   }, [])
   return <HomeComponent pokemons={pokemons} />
 }
