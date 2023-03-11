@@ -3,6 +3,8 @@
   flex-direction: column;
   padding: 6rem;
   min-height: 80vh;
+  max-width: 60vw;
+  margin: 0 auto;
 }
 
 .header {
@@ -42,6 +44,7 @@
   padding: 1rem;
   color: white;
   font-weight: 600;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 .types__chip {
@@ -53,6 +56,18 @@
 .types__chip span {
   text-transform: capitalize;
   font-weight: 600;
+}
+
+.star__container {
+  width: min-content;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: darkgray;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 @media (max-width: 700px) {

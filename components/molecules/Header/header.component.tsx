@@ -7,14 +7,13 @@ import Typography from "@mui/material/Typography"
 import Menu from "@mui/material/Menu"
 import MenuIcon from "@mui/icons-material/Menu"
 import Container from "@mui/material/Container"
-import Button from "@mui/material/Button"
 import MenuItem from "@mui/material/MenuItem"
 import Gengar from "public/images/gengar.webp"
 import Pokemon from "public/images/pokemon.webp"
 
 import Image from "next/image"
 import { PAGES } from "constants/pages.constants"
-import styles from "./header.module.css"
+import Link from "next/link"
 
 export const HeaderComponent = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
@@ -65,23 +64,27 @@ export const HeaderComponent = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {PAGES.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {PAGES.map(({ id, name, url }) => (
+                <MenuItem key={id} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {PAGES.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex", gap: "1rem" },
+            }}
+          >
+            {PAGES.map(({ id, name, url }) => (
+              <Link key={id} href={url}>
+                <Typography variant="button" color="white">
+                  {" "}
+                  {name}
+                </Typography>
+              </Link>
             ))}
           </Box>
 

@@ -3,6 +3,7 @@ import { Chip, Typography } from "@mui/material"
 import { PokemonByIdResponse } from "services/models/pokemon.model"
 import Pokemon from "public/images/pokemon.webp"
 import styles from "./detail.module.css"
+import { CustomStar } from "components/atoms/Star"
 type Props = {
   pokemon: PokemonByIdResponse
 }
@@ -17,6 +18,7 @@ export const DetailComponent = ({ pokemon }: Props) => {
     height,
     weight,
     moves,
+    stats,
   } = pokemon
   return (
     <div className={styles.container}>
@@ -73,7 +75,15 @@ export const DetailComponent = ({ pokemon }: Props) => {
           </article>
         </article>
       </section>
-      <section className={styles.cards__container}></section>
+      <section className={styles.star__container}>
+        {stats?.map(({ base_stat, stat }) => (
+          <CustomStar
+            key={`${base_stat} - ${stat.name}`}
+            text={stat?.name}
+            value={base_stat}
+          />
+        ))}
+      </section>
     </div>
   )
 }

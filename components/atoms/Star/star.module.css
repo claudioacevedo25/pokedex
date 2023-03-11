@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+@media (min-width: 700px) {
+  .container {
+    flex-direction: row;
+  }
+}
