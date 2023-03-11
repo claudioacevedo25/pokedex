@@ -7,9 +7,11 @@ import { GenericAbortSignal } from "axios"
 const { getAllPokemons, getPokemon } = pokemonService
 
 export const HomeContainer = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const [pokemons, setPokemons] = useState<PokemonByIdResponse[]>([])
 
   const fetchPokemons = async (signal: GenericAbortSignal) => {
+    setIsLoading((prevState) => !prevState)
     try {
       const response = await getAllPokemons(signal)
       response.map(async ({ url }) => {
@@ -19,6 +21,7 @@ export const HomeContainer = () => {
     } catch (error) {
       console.log(error)
     }
+    setIsLoading((prevState) => !prevState)
   }
 
   useEffect(() => {
@@ -26,5 +29,5 @@ export const HomeContainer = () => {
     void fetchPokemons(abortController.signal)
     return () => abortController.abort()
   }, [])
-  return <HomeComponent pokemons={pokemons} />
+  return <HomeComponent pokemons={pokemons} isLoading={isLoading} />
 }

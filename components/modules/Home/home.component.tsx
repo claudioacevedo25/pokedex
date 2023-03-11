@@ -1,12 +1,14 @@
-import { PokemonByIdResponse } from "@/services/models/pokemon.model"
-import { MediaCard } from "@/components/molecules/MediaCard"
+import { PokemonByIdResponse } from "services/models/pokemon.model"
+import { MediaCard } from "components/molecules/MediaCard"
 import styles from "./home.module.css"
 import { Input } from "components/atoms/CustomInput"
 import { Typography } from "@mui/material"
+import { CustomSkeleton } from "components/atoms/Skeleton"
 type Props = {
   pokemons: PokemonByIdResponse[]
+  isLoading: boolean
 }
-export const HomeComponent = ({ pokemons }: Props) => (
+export const HomeComponent = ({ pokemons, isLoading }: Props) => (
   <div className={styles.container}>
     <div className={styles.header}>
       <div>
@@ -19,13 +21,16 @@ export const HomeComponent = ({ pokemons }: Props) => (
       </div>
     </div>
     <div className={styles.cards__container}>
-      <ul className={styles.cards__list}>
-        {pokemons.map((pokemon) => (
-          <li className={styles.card__pokemon} key={pokemon.id}>
-            <MediaCard {...pokemon} />
-          </li>
-        ))}
-      </ul>
+      {isLoading && <CustomSkeleton />}
+      {pokemons && !isLoading && (
+        <ul className={styles.cards__list}>
+          {pokemons.map((pokemon) => (
+            <li className={styles.card__pokemon} key={pokemon.id}>
+              <MediaCard {...pokemon} />
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   </div>
 )
