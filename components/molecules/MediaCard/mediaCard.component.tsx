@@ -8,7 +8,8 @@ import { MediaCardProps } from "./mediaCard.model"
 import Pokemon from "public/images/pokemon.webp"
 import styles from "./mediaCard.module.css"
 import { Chip } from "@mui/material"
-import { CHIP_COLORS } from "@/constants/chipColors.constants"
+import { CHIP_COLORS } from "constants/chipColors.constants"
+import Link from "next/link"
 
 export const MediaCardComponent = ({
   id,
@@ -44,14 +45,17 @@ export const MediaCardComponent = ({
             <Chip
               key={slot}
               size="small"
-              color={CHIP_COLORS[type.name as keyof typeof CHIP_COLORS]}
               label={type?.name}
+              sx={{
+                bgcolor: CHIP_COLORS[type?.name as keyof typeof CHIP_COLORS],
+                color: "#fff",
+              }}
             />
           ))}
         </div>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Link href={`/pokemon/${id}`}>Saber Más</Link>
       </CardActions>
     </Card>
   )
