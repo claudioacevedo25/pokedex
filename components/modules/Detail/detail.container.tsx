@@ -7,27 +7,15 @@ import { useRouter } from "next/router"
 const { getPokemonById } = pokemonService
 
 type Props = {
-  id: string
+  pokemon: PokemonByIdResponse | null
 }
 
-export const DetailContainer = ({ id }: Props) => {
+export const DetailContainer = ({ pokemon }: Props) => {
   const router = useRouter()
-  const [pokemon, setPokemon] = useState<PokemonByIdResponse>()
 
-  const fetchPokemon = useCallback(async () => {
-    try {
-      const response = await getPokemonById(id)
-      setPokemon(response)
-    } catch (error) {
-      console.log(error)
-      router.push("/")
-    }
-  }, [id, router])
-
-  useEffect(() => {
-    void fetchPokemon()
-  }, [fetchPokemon])
-
-  if (!pokemon) return null
+  if (!pokemon) {
+    void router.push("/")
+    return null
+  }
   return <DetailComponent pokemon={pokemon} />
 }
