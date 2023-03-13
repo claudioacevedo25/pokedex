@@ -4,11 +4,21 @@ import styles from "./home.module.css"
 import { Input } from "components/atoms/CustomInput"
 import { Typography } from "@mui/material"
 import { CustomSkeleton } from "components/atoms/Skeleton"
+import { MutableRefObject } from "react"
 type Props = {
   pokemons: PokemonByIdResponse[]
   isLoading: boolean
+  findPokemon: () => void
+  clearSearch: () => void
+  searchRef: MutableRefObject<HTMLInputElement | null>
 }
-export const HomeComponent = ({ pokemons, isLoading }: Props) => (
+export const HomeComponent = ({
+  pokemons,
+  isLoading,
+  findPokemon,
+  clearSearch,
+  searchRef,
+}: Props) => (
   <div className={styles.container}>
     <div className={styles.header}>
       <div>
@@ -17,7 +27,11 @@ export const HomeComponent = ({ pokemons, isLoading }: Props) => (
         </Typography>
       </div>
       <div>
-        <Input />
+        <Input
+          findPokemon={findPokemon}
+          clearSearch={clearSearch}
+          searchRef={searchRef}
+        />
       </div>
     </div>
     <div className={styles.cards__container}>

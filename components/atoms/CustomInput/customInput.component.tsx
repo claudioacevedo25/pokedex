@@ -1,25 +1,47 @@
 import Paper from "@mui/material/Paper"
 import InputBase from "@mui/material/InputBase"
-import Divider from "@mui/material/Divider"
 import IconButton from "@mui/material/IconButton"
-import MenuIcon from "@mui/icons-material/Menu"
 import SearchIcon from "@mui/icons-material/Search"
-import DirectionsIcon from "@mui/icons-material/Directions"
+import ClearIcon from "@mui/icons-material/Clear"
+import { CustomInputProps } from "./customInput.model"
+import { Tooltip } from "@mui/material"
 
-export const CustomInputComponent = () => {
+export const CustomInputComponent = ({
+  findPokemon,
+  clearSearch,
+  searchRef,
+}: CustomInputProps) => {
   return (
     <Paper
       component="form"
       sx={{ p: "2px 4px", display: "flex", alignItems: "center" }}
     >
       <InputBase
+        inputRef={searchRef}
         sx={{ ml: 1, flex: 1 }}
         placeholder="Buscar"
         inputProps={{ "aria-label": "Buscar" }}
       />
-      <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-        <SearchIcon />
-      </IconButton>
+      <Tooltip title="Buscar">
+        <IconButton
+          type="button"
+          sx={{ p: "10px" }}
+          aria-label="search"
+          onClick={findPokemon}
+        >
+          <SearchIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Eliminar búsqueda">
+        <IconButton
+          type="button"
+          sx={{ p: "10px" }}
+          aria-label="search"
+          onClick={clearSearch}
+        >
+          <ClearIcon />
+        </IconButton>
+      </Tooltip>
     </Paper>
   )
 }
