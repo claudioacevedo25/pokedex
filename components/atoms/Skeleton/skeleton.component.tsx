@@ -8,8 +8,8 @@ export const SkeletonComponent = () => {
   return (
     <div className={styles.container}>
       {skeletons.map((item) => (
-        <Card key={item} sx={{ minWidth: 345, m: 2, p: 2 }}>
-          <Skeleton animation="wave" height={300} style={{ marginBottom: 6 }} />
+        <Card key={item} sx={{ minWidth: 216, m: 2, p: 2 }}>
+          <Skeleton animation="wave" height={250} style={{ marginBottom: 6 }} />
           <Skeleton animation="wave" height={100} width="80%" />
         </Card>
       ))}

@@ -38,7 +38,16 @@ export const DetailComponent = ({ pokemon }: Props) => {
           />
         </div>
         <article className={styles.primary__info}>
-          <div className={styles.pokemon__characteristic}>
+          <section className={styles.star__container}>
+            {stats?.map(({ base_stat, stat }) => (
+              <CustomStar
+                key={`${base_stat} - ${stat.name}`}
+                text={stat?.name}
+                value={base_stat}
+              />
+            ))}
+          </section>
+          <section className={styles.pokemon__characteristic}>
             <Typography variant="h5">{`Peso: ${weight} libras`}</Typography>
             <Typography variant="h5">{`Altura: ${height} pies`}</Typography>
             <Typography variant="h5" className={styles.types__chip}>
@@ -47,42 +56,33 @@ export const DetailComponent = ({ pokemon }: Props) => {
                 <Chip key={slot} label={type?.name} />
               ))}
             </Typography>
-          </div>
-          <article className={styles.secondary__info}>
-            <Typography gutterBottom>Movimientos</Typography>
-
-            <Typography variant="h5" className={styles.types__chip}>
-              {moves?.map(({ move }, index) => {
-                if (index > 10) return
-                return (
-                  <Chip
-                    key={`${move.name} - ${index}`}
-                    label={move.name}
-                    color="secondary"
-                  />
-                )
-              })}
-            </Typography>
-          </article>
-          <article className={styles.secondary__info}>
-            <Typography gutterBottom>Habilidades</Typography>
-
-            <Typography variant="h5" className={styles.types__chip}>
-              {abilities?.map(({ ability, slot }) => (
-                <Chip key={`${slot}`} label={ability.name} color="success" />
-              ))}
-            </Typography>
-          </article>
+          </section>
         </article>
-      </section>
-      <section className={styles.star__container}>
-        {stats?.map(({ base_stat, stat }) => (
-          <CustomStar
-            key={`${base_stat} - ${stat.name}`}
-            text={stat?.name}
-            value={base_stat}
-          />
-        ))}
+        <article className={styles.secondary__info}>
+          <Typography gutterBottom>Movimientos</Typography>
+
+          <Typography variant="h5" className={styles.types__chip}>
+            {moves?.map(({ move }, index) => {
+              if (index > 10) return
+              return (
+                <Chip
+                  key={`${move.name} - ${index}`}
+                  label={move.name}
+                  color="secondary"
+                />
+              )
+            })}
+          </Typography>
+        </article>
+        <article className={styles.secondary__info}>
+          <Typography gutterBottom>Habilidades</Typography>
+
+          <Typography variant="h5" className={styles.types__chip}>
+            {abilities?.map(({ ability, slot }) => (
+              <Chip key={`${slot}`} label={ability.name} color="success" />
+            ))}
+          </Typography>
+        </article>
       </section>
     </div>
   )

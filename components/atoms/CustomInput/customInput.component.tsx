@@ -20,7 +20,14 @@ export const CustomInputComponent = ({
         inputRef={searchRef}
         sx={{ ml: 1, flex: 1 }}
         placeholder="Buscar"
-        inputProps={{ "aria-label": "Buscar" }}
+        inputProps={{
+          "aria-label": "Buscar",
+          onKeyDown: (e) => {
+            if (e.key === "Enter") {
+              e.preventDefault()
+            }
+          },
+        }}
       />
       <Tooltip title="Buscar">
         <IconButton
