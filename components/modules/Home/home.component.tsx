@@ -1,10 +1,11 @@
+import { MutableRefObject } from "react"
+import { Typography } from "@mui/material"
+import { Toaster } from "react-hot-toast"
 import { PokemonByIdResponse } from "services/models/pokemon.model"
 import { MediaCard } from "components/molecules/MediaCard"
-import styles from "./home.module.css"
 import { Input } from "components/atoms/CustomInput"
-import { Typography } from "@mui/material"
 import { CustomSkeleton } from "components/atoms/Skeleton"
-import { MutableRefObject } from "react"
+import styles from "./home.module.css"
 type Props = {
   pokemons: PokemonByIdResponse[]
   isLoading: boolean
@@ -20,6 +21,8 @@ export const HomeComponent = ({
   searchRef,
 }: Props) => (
   <div className={styles.container}>
+    <Toaster />
+
     <div className={styles.header}>
       <div>
         <Typography variant="h5" color="secondary">

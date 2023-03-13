@@ -1,4 +1,3 @@
-import { GenericAbortSignal } from "axios"
 import { PokemonByIdResponse } from "services/models/pokemon.model"
 import { DetailComponent } from "./detail.component"
 import { pokemonService } from "services/modules/pokemon.service"
@@ -15,23 +14,18 @@ export const DetailContainer = ({ id }: Props) => {
   const router = useRouter()
   const [pokemon, setPokemon] = useState<PokemonByIdResponse>()
 
-  const fetchPokemon = useCallback(
-    async (signal: GenericAbortSignal) => {
-      try {
-        const response = await getPokemonById(id, signal)
-        setPokemon(response)
-      } catch (error) {
-        console.log(error)
-        router.push("/")
-      }
-    },
-    [id, router]
-  )
+  const fetchPokemon = useCallback(async () => {
+    try {
+      const response = await getPokemonById(id)
+      setPokemon(response)
+    } catch (error) {
+      console.log(error)
+      router.push("/")
+    }
+  }, [id, router])
 
   useEffect(() => {
-    const abortController = new AbortController()
-    void fetchPokemon(abortController.signal)
-    return () => abortController.abort()
+    void fetchPokemon()
   }, [fetchPokemon])
 
   if (!pokemon) return null

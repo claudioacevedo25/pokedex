@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import toast from "react-hot-toast"
 import { PokemonByIdResponse } from "services/models/pokemon.model"
 import { HomeComponent } from "./home.component"
 import { pokemonService } from "services/modules/pokemon.service"
@@ -22,6 +23,9 @@ export const HomeContainer = () => {
       })
     } catch (error) {
       console.log(error)
+      toast.error(
+        "Ocurrió un error inesperado, intente nuevamente en unos minutos"
+      )
     }
     setIsLoading((prevState) => !prevState)
   }
@@ -29,12 +33,22 @@ export const HomeContainer = () => {
   const findPokemon = () => {
     if (!pokemons) return
     const pokemonName = searchRef.current?.value.toLowerCase()
+    if (pokemonName === "" || !pokemonName)
+      return toast.error(
+        "Por favor, ingresa un nombre para comenzar la busqueda"
+      )
+
     const result = pokemons.filter((pokemon) => pokemon.name === pokemonName)
-    if (!result.length) return
+    if (!result.length)
+      return toast.error("No encontramos resultados, intenta con otro nombre")
+
     setFilterPokemon(result)
   }
 
-  const clearSearch = () => setFilterPokemon(undefined)
+  const clearSearch = () => {
+    if (searchRef.current) searchRef.current.value = ""
+    setFilterPokemon(undefined)
+  }
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -42,12 +56,14 @@ export const HomeContainer = () => {
     return () => abortController.abort()
   }, [])
   return (
-    <HomeComponent
-      pokemons={filterPokemon ?? pokemons}
-      isLoading={isLoading}
-      findPokemon={findPokemon}
-      clearSearch={clearSearch}
-      searchRef={searchRef}
-    />
+    <>
+      <HomeComponent
+        pokemons={filterPokemon ?? pokemons}
+        isLoading={isLoading}
+        findPokemon={findPokemon}
+        clearSearch={clearSearch}
+        searchRef={searchRef}
+      />
+    </>
   )
 }

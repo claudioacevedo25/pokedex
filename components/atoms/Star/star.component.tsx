@@ -7,11 +7,11 @@ type Props = {
   value: number
   text: string
 }
+const max = 5.0
+const min = 1.0
 
 export const StarComponent = ({ value, text }: Props) => {
   const toRelativeNumber = useMemo(() => {
-    const max = 5.0
-    const min = 1.0
     const proportion = (value - 1) / 99
     const relative = proportion * (max - min) + min
     return Math.round(relative * 2) / 2
@@ -19,11 +19,11 @@ export const StarComponent = ({ value, text }: Props) => {
   return (
     <Box
       sx={{
-        width: 300,
         display: "flex",
         alignItems: "center",
         gap: "1rem",
         textTransform: "capitalize",
+        flexWrap: "wrap",
       }}
     >
       <Rating
